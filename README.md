@@ -1,6 +1,6 @@
 # Тествое задание по созданию приложения для просмотра погоды.
 
-Посмотреть результат можно здесь: [github.io](https://n06rin.github.io/weatherSPA/dist/)
+Посмотреть результат можно здесь: [renewal-weather.surge.sh](http://renewal-weather.surge.sh)
 
 # Как запустить локально?
 клонируем репозиторий к себе
@@ -9,9 +9,10 @@ $ git clone https://github.com/n06rin/weatherSPA.git
 ```
 заходим в директорию  и запускаем yarn
 ```sh
+$ cd weatherSPA
 $ yarn
 ```
-потом запускаем приложение локально:
+запустить приложение локально:
 ```sh
 $ yarn start
 ```
