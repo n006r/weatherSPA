@@ -5,14 +5,16 @@ import { Types, Creators } from './store.js';
 import City from '../lib/City.js';
 import cityIDsSource from '../lib/cityIDs.json';
 
+const apiKey = '508b3137b4a792978e3ee7f105145c4c';
+
 
 const fetchCurrentWeather = id => {
-  return fetch(`http://api.openweathermap.org/data/2.5/weather?id=${id}&APPID=508b3137b4a792978e3ee7f105145c4c&units=metric&lang=ru`)
+  return fetch(`http://api.openweathermap.org/data/2.5/weather?id=${id}&APPID=${apiKey}&units=metric&lang=ru`)
   .then(r => r.json());
 }
 
 const fetchForecast = id => {
-  return fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${id}&APPID=508b3137b4a792978e3ee7f105145c4c&units=metric&lang=ru`)
+  return fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${id}&APPID=${apiKey}&units=metric&lang=ru`)
   .then(r => r.json());
 }
 
@@ -39,10 +41,6 @@ function* getWeather(cityName) {
   } catch (e) {
     console.log('fetching failed with ', e);
   }
-}
-
-function* saveCity(city) {
-  yield put (Creators.saveCity(city));
 }
 
 function* createCityData (action) {
@@ -75,6 +73,7 @@ function* saveToCash() {
   localStorage.setItem('favouriteCities', JSON.stringify(listOfFavouriteCities.toJS()));
 }
 
+// здесь мы отлавливаем события, на которые должны отрабывать саги
 function* mySaga() {
   yield takeLatest(Types.CREATE_CITY_DATA, createCityData);
   yield takeEvery(Types.ADD_CITY_TO_FAVORITES, addCityToFavorites);

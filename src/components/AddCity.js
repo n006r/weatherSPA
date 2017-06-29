@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators } from '../redux/store.js';
 import { List } from 'immutable';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class _AddCity extends React.Component {
@@ -38,19 +39,13 @@ class _AddCity extends React.Component {
     this.setState({ selectedCities });
   }
 
-  addCities = () => {
+  addCities = (event) => {
+    event.preventDefault();
     this.state.selectedCities.map(cityName => this.props.addCityToFavorites(cityName));
     this.setState({ value: '', selectedCities: List(), filteredCities: List() });
   }
 
   render() {
-    const renderCityRows = () => {
-        return this.state.filteredCities.map( city => (
-          <TableRow key={city} selected={this.state.selectedCities.indexOf(city) >= 0}>
-            <TableRowColumn>{city}</TableRowColumn>
-          </TableRow>
-        ))
-    }
     return (
       <div>
         <Table
@@ -75,17 +70,27 @@ class _AddCity extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} deselectOnClickaway={false}>
-            {renderCityRows()}
+            {
+              this.state.filteredCities.map( city => (
+                <TableRow key={city} selected={this.state.selectedCities.indexOf(city) >= 0}>
+                  <TableRowColumn>{city}</TableRowColumn>
+                </TableRow>
+              ))
+            }
           </TableBody>
         </Table>
         <RaisedButton
           label="Добавить города"
           primary={true}
-          onClick={this.addCities}
+          onTouchTap={this.addCities}
         />
       </div>
     );
   }
+}
+_AddCity.propTypes = {
+  cities: PropTypes.instanceOf(List).isRequired,
+  addCityToFavorites: PropTypes.func.isRequired,
 }
 
 const AddCity = connect((state) => {

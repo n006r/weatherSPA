@@ -11,6 +11,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators } from '../redux/store.js';
+import { List } from 'immutable';
+import PropTypes from 'prop-types';
 
 import FavCityRow from './FavCityRow.js';
 
@@ -52,6 +54,11 @@ class _CitiesTable extends React.Component {
       </Table>
     );
   }
+}
+_CitiesTable.propTypes = {
+  cities: PropTypes.instanceOf(List).isRequired,
+  removeCityFromFavorites: PropTypes.func.isRequired,
+  getForecast: PropTypes.func.isRequired,
 }
 
 const CitiesTable = connect((state) => ({

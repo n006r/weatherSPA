@@ -6,6 +6,8 @@ import City from '../lib/City.js'
 
 import mySaga from './saga.js';
 
+// пробуем взять из localStorage список городов в избранном. Если они есть, то
+// попробовать взять и данные этих городов.
 const favCitiesAtLocStorage = JSON.parse(localStorage.getItem('favouriteCities'));
 const INITIAL_STATE = Map({
   cities: favCitiesAtLocStorage ?
@@ -18,6 +20,7 @@ const INITIAL_STATE = Map({
   : List(),
 });
 
+// redux sauce позволяет одновременно создавать событие и создатель события
 const actions = createActions({
   createCityData: null,
   setCities: ['cities'],
@@ -58,6 +61,7 @@ const setCities = (state = INITIAL_STATE, {cities}) => {
   return (state.set('cities', mergedCities));
 };
 
+// устанавливаем взаимосвязь между событиями и редьюсерами
 const HANDLERS = {
   [Types.SET_CITIES]: setCities,
   [Types.SAVE_CITY_TO_FAVORITES]: saveCityToFavorites,

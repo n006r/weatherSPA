@@ -87,6 +87,7 @@ class FavCityRow extends React.Component {
             label="удалить"
             secondary
             onClick={this.props.removeCityFromFavorites}
+            style={{margin: 12}}
           />
         </TableRowColumn>
       </TableRow>
